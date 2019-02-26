@@ -2,7 +2,7 @@ package com.mvp.rx.sample.webservice
 
 import com.mvp.rx.sample.data.Photo
 import com.mvp.rx.sample.data.Place
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -10,15 +10,15 @@ import retrofit2.http.POST
 interface IApi {
 
     @POST("user/login")
-    fun login(@Body request: LoginRequest): Call<LoginResponse>
+    fun login(@Body request: LoginRequest): Single<LoginResponse>
 
     @POST("user/register")
-    fun register(@Body request: RegisterRequest): Call<RegisterResponse>
+    fun register(@Body request: RegisterRequest): Single<RegisterResponse>
 
     @GET("places")
-    fun getPlaces(): Call<List<Place>>
+    fun getPlaces(): Single<List<Place>>
 
     @GET("photos")
-    fun getPhotos(): Call<List<Photo>>
+    fun getPhotos(): Single<List<Photo>>
 
 }

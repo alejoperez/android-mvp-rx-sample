@@ -26,6 +26,11 @@ class LoginActivity : BaseActivity(), ILoginContract.View {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unsubscribe()
+    }
+
     private fun onLoginClicked() {
         if (presenter.isValidForm(getEmail(), getPassword())) {
             presenter.login(getEmail(), getPassword())

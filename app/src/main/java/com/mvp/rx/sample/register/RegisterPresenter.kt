@@ -1,11 +1,13 @@
 package com.mvp.rx.sample.register
 
 import com.mvp.rx.sample.R
+import com.mvp.rx.sample.base.BasePresenter
 import com.mvp.rx.sample.data.user.UserRepository
+import com.mvp.rx.sample.extensions.addTo
+import com.mvp.rx.sample.extensions.applyIoAndMainThreads
 import com.mvp.rx.sample.webservice.RegisterRequest
-import com.mvp.rx.sample.webservice.RegisterResponse
 
-class RegisterPresenter(private val view: IRegisterContract.IRegisterView): IRegisterContract.IRegisterPresenter, UserRepository.IRegisterListener {
+class RegisterPresenter(private val view: IRegisterContract.IRegisterView): BasePresenter(), IRegisterContract.IRegisterPresenter {
 
     override fun isValidName(name: String): Boolean = name.isNotEmpty()
 
@@ -16,28 +18,35 @@ class RegisterPresenter(private val view: IRegisterContract.IRegisterView): IReg
     override fun isValidForm(name: String, email: String, password: String): Boolean = isValidName(name) && isValidEmail(email) && isValidPassword(password)
 
     override fun register(name: String, email: String, password: String) {
-        view.showProgress()
-        UserRepository.getInstance().register(view.getViewContext(), RegisterRequest(name, email, password),this)
+
+        UserRepository.getInstance().register(view.getViewContext(), RegisterRequest(name, email, password))
+                .applyIoAndMainThreads()
+                .doOnSubscribe { view.showProgress() }
+                .doAfterTerminate { hideProgress() }
+                .subscribe(
+                        { onRegisterSuccess() },
+                        { onRegisterFailure() }
+                )
+                .addTo(compositeDisposable)
     }
 
-    override fun onRegisterSuccess(response: RegisterResponse?) {
+    private fun onRegisterSuccess() {
         if (view.isActive()) {
             view.hideProgress()
             view.onRegisterSuccess()
         }
     }
 
-    override fun onRegisterFailure() {
+    private fun onRegisterFailure() {
         if (view.isActive()) {
             view.hideProgress()
             view.onRegisterFailure()
         }
     }
 
-    override fun onNetworkError() {
+    private fun hideProgress() {
         if (view.isActive()) {
             view.hideProgress()
-            view.showAlert(R.string.error_network)
         }
     }
 

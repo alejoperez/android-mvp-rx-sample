@@ -1,10 +1,10 @@
 package com.mvp.rx.sample.application
 
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
-class SampleApp: Application() {
+class SampleApp: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

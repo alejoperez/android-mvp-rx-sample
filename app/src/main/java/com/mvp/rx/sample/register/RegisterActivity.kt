@@ -30,6 +30,11 @@ class RegisterActivity : BaseActivity(), IRegisterContract.IRegisterView {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unsubscribe()
+    }
+
     private fun onRegisterClicked() {
         if (presenter.isValidForm(getName(), getEmail(), getPassword())) {
             presenter.register(getName(), getEmail(), getPassword())

@@ -6,6 +6,7 @@ import com.mvp.rx.sample.storage.PreferenceManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -25,6 +26,7 @@ object WebService {
     private val builder: Retrofit.Builder = Retrofit.Builder()
             .baseUrl(BuildConfig.SERVER_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
     fun <S> createService(context: Context, serviceClass: Class<S>, authType: AuthenticationType = AuthenticationType.NONE): S {
 

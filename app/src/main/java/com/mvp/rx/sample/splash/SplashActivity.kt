@@ -17,15 +17,22 @@ class SplashActivity : BaseActivity(), ISplashContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Handler().postDelayed({ goToNextScreen() }, SPLASH_DELAY)
+        Handler().postDelayed({ presenter.isLoggedIn() }, SPLASH_DELAY)
     }
 
-    override fun goToNextScreen() {
-        if (presenter.isLoggedIn()) {
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unsubscribe()
+    }
+
+    override fun onLoggedInEventSuccess(isLoggedIn: Boolean) {
+        if (isLoggedIn) {
             startActivity<MainActivity>()
         } else {
             startActivity<RegisterActivity>()
         }
         finish()
     }
+
+    override fun onLoggedInEventFailure() = Unit
 }

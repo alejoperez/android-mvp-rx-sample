@@ -5,7 +5,10 @@ import com.mvp.rx.sample.data.User
 
 interface IMainContract {
 
-    interface View: IBaseView
+    interface View: IBaseView {
+        fun onLogOutSuccess()
+        fun onLogOutFailure()
+    }
 
     interface Presenter {
         fun getUser(): User?

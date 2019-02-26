@@ -5,11 +5,12 @@ import com.mvp.rx.sample.base.IBaseView
 interface ISplashContract {
 
     interface View: IBaseView {
-        fun goToNextScreen()
+        fun onLoggedInEventSuccess(isLoggedIn: Boolean)
+        fun onLoggedInEventFailure()
     }
 
     interface Presenter {
-        fun isLoggedIn(): Boolean
+        fun isLoggedIn()
     }
 
 }

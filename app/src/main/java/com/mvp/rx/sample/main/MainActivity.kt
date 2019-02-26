@@ -26,6 +26,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         replaceFragment(PlacesFragment.newInstance(),R.id.main_content_view, PlacesFragment.TAG)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unsubscribe()
+    }
+
     private fun initView() {
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -35,10 +40,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         navView.setNavigationItemSelectedListener(this)
         navView.menu.getItem(0).isChecked = true
 
-        loadUserInfo()
-    }
-
-    private fun loadUserInfo() {
         val user = presenter.getUser()
         val textViewUserName = navView.getHeaderView(0).findViewById(R.id.tvUserName) as TextView
         val textViewUserEmail = navView.getHeaderView(0).findViewById(R.id.tvUserEmail) as TextView
@@ -69,11 +70,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_logout -> {
                 presenter.logout()
-                finishAffinity()
+
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    override fun onLogOutSuccess() = finishAffinity()
+
+    override fun onLogOutFailure() = Unit
 }
