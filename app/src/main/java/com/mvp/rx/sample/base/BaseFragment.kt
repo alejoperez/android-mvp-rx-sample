@@ -1,7 +1,7 @@
 package com.mvp.rx.sample.base
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton
 

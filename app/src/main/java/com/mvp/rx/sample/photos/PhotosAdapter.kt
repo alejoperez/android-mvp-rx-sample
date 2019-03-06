@@ -1,6 +1,6 @@
 package com.mvp.rx.sample.photos
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.mvp.rx.sample.data.Photo
 

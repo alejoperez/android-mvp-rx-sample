@@ -1,9 +1,9 @@
 package com.mvp.rx.sample.base
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.yesButton

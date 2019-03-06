@@ -1,14 +1,14 @@
 package com.mvp.rx.sample.photos
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.View
 import com.bumptech.glide.Glide
 import com.mvp.rx.sample.R
 import com.mvp.rx.sample.data.Photo
 import kotlinx.android.synthetic.main.item_photo.view.*
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class PhotoItemView : CoordinatorLayout, View.OnClickListener {
 
